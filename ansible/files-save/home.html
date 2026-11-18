@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>X-Streaming — Modern Software Systems</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body class="home-page">
+
+<header class="navbar">
+  <a class="brand" href="index.html">
+    <img src="images/logo.png" alt="X-STREAM">
+  </a>
+
+  <nav>
+    <a class="active" href="home.html">Accueil</a>
+    <a href="#films">Films hls</a>
+    <a href="jeux.html">Jeux</a>
+  </nav>
+
+  <div class="nav-right">
+    <button class="icon-button" type="button" aria-label="Recherche"><span class="x-icon x-icon-search" aria-hidden="true"></span></button>
+    <button class="icon-button" type="button" aria-label="Notifications"><span class="x-icon x-icon-notifications" aria-hidden="true"></span></button>
+    <div class="profile-menu">
+      <img class="profile-icon" src="images/profile-belka.png" alt="Profil Belka">
+      <span id="profileName">Belka</span>
+      <a href="index.html" aria-label="Changer de profil">▾</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" aria-label="Big Buck Bunny">
+    <video id="heroVideo" class="hero-video" autoplay muted playsinline preload="auto" poster="images/bbb_sunflower_1080p_30fps_normal.jpg"></video>
+    <div class="hero-overlay"></div>
+
+    <button id="soundButton" class="sound-button" type="button" aria-label="Activer le son"><span class="x-icon x-icon-volume-off" aria-hidden="true"></span></button>
+
+    <div class="hero-content">
+      <div class="hero-x">X</div>
+      <div class="hero-tag">X-STREAMING ORIGINAL</div>
+
+      <h1>Big Buck Bunny</h1>
+
+      <p class="meta">Animation • Comédie • 2008 • Tous publics</p>
+
+      <p class="description">
+        Suivez les aventures de Big Buck Bunny, un lapin pas comme les autres,
+        dans un monde plein de surprises.
+      </p>
+
+      <div class="buttons">
+        <button id="playButton" class="play-button" type="button">▶ Lecture</button>
+        <button id="infoButton" class="info-button" type="button">ⓘ Plus d'infos</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" id="selection">
+    <h2>Modern Software Systems</h2>
+
+    <div class="cards">
+      <article class="card" tabindex="0" role="link" aria-label="Regarder bbb_sunflower_1080p_30fps_normal" data-stream="/stream/hls/stream.m3u8" data-title="SUNFLOWER" data-variant="30 FPS · Standard" data-fps="30 fps" data-audio="Normal" data-year="2026" data-resolution="1080p" data-rating="Tous publics">
+         <div class="card-media"><img src="images/bbb_sunflower_1080p_30fps_normal.jpg" alt="bbb_sunflower_1080p_30fps_normal" loading="lazy"><video muted playsinline preload="none" aria-hidden="true"></video></div>
+         <div class="card-details"><strong>SUNFLOWER</strong><span>30 FPS · Standard</span></div>
+       </article>
+
+      <article class="card" tabindex="0" role="link" aria-label="Regarder bbb_sunflower_1080p_30fps_stereo_agmh" data-stream="/stream/hls/stream.m3u8" data-title="SUNFLOWER" data-variant="30 FPS · Stéréo AGMH" data-fps="30 fps" data-audio="Stéréo AGMH" data-year="2026" data-resolution="1080p" data-rating="Tous publics">
+         <div class="card-media"><img src="images/bbb_sunflower_1080p_30fps_stereo_agmh.jpg" alt="bbb_sunflower_1080p_30fps_stereo_agmh" loading="lazy"><video muted playsinline preload="none" aria-hidden="true"></video></div>
+         <div class="card-details"><strong>SUNFLOWER</strong><span>30 FPS · Stéréo AGMH</span></div>
+       </article>
+
+      <article class="card" tabindex="0" role="link" aria-label="Regarder bbb_sunflower_1080p_30fps_stereo_arcd" data-stream="/stream/hls/stream.m3u8" data-title="SUNFLOWER" data-variant="30 FPS · Stéréo ARCD" data-fps="30 fps" data-audio="Stéréo ARCD" data-year="2026" data-resolution="1080p" data-rating="Tous publics">
+         <div class="card-media"><img src="images/bbb_sunflower_1080p_30fps_stereo_arcd.jpg" alt="bbb_sunflower_1080p_30fps_stereo_arcd" loading="lazy"><video muted playsinline preload="none" aria-hidden="true"></video></div>
+         <div class="card-details"><strong>SUNFLOWER</strong><span>30 FPS · Stéréo ARCD</span></div>
+       </article>
+
+      <article class="card" tabindex="0" role="link" aria-label="Regarder bbb_sunflower_1080p_60fps_normal" data-stream="/stream/hls/stream.m3u8" data-title="SUNFLOWER" data-variant="60 FPS · Standard" data-fps="60 fps" data-audio="Normal" data-year="2026" data-resolution="1080p" data-rating="Tous publics">
+         <div class="card-media"><img src="images/bbb_sunflower_1080p_60fps_normal.jpg" alt="bbb_sunflower_1080p_60fps_normal" loading="lazy"><video muted playsinline preload="none" aria-hidden="true"></video></div>
+         <div class="card-details"><strong>SUNFLOWER</strong><span>60 FPS · Standard</span></div>
+       </article>
+
+      <article class="card" tabindex="0" role="link" aria-label="Regarder bbb_sunflower_1080p_60fps_stereo_arcc" data-stream="/stream/hls/stream.m3u8" data-title="SUNFLOWER" data-variant="60 FPS · Stéréo ARCC" data-fps="60 fps" data-audio="Stéréo ARCC" data-year="2026" data-resolution="1080p" data-rating="Tous publics">
+         <div class="card-media"><img src="images/bbb_sunflower_1080p_60fps_stereo_arcc.jpg" alt="bbb_sunflower_1080p_60fps_stereo_arcc" loading="lazy"><video muted playsinline preload="none" aria-hidden="true"></video></div>
+         <div class="card-details"><strong>SUNFLOWER</strong><span>60 FPS · Stéréo ARCC</span></div>
+       </article>
+    </div>
+  </section>
+
+
+  <section id="films" class="anchor-section"></section>
+  <section id="games" class="anchor-section"></section>
+
+</main>
+
+<div id="card-popup" class="card-popup" hidden></div>
+<script type="module" src="./player.js"></script>
+<script type="module" src="./cards.js"></script>
+</body>
+</html>

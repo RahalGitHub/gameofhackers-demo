@@ -1,0 +1,7 @@
+---
+- import_playbook: nginx-install.yml
+- import_playbook: deploy-certificate.yml
+- import_playbook: create-vhost.yaml
+- import_playbook: deploy-website.yml
+- import_playbook: deploy-video.yml
+- import_playbook: deploy-streaming.yml

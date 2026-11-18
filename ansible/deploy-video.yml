@@ -1,0 +1,17 @@
+---
+- name: Deploy GameOfHackers demo video
+  hosts: streamer
+  become: true
+
+  tasks:
+    - name: Create video directory
+      ansible.builtin.file:
+        path: /opt/gameofhackers/videos
+        state: directory
+        mode: "0755"
+
+    - name: Upload Big Buck Bunny to backend
+      ansible.builtin.copy:
+        src: files/video/bbb_sunflower_1080p_30fps_stereo_agmh.mp4
+        dest: /opt/gameofhackers/videos/demo.mp4
+        mode: "0644"

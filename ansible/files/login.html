@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GameOfHackers — Connexion</title>
+
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="header">
+      <img src="images/logo.png" alt="GameOfHackers" class="logo">
+    </header>
+
+    <main class="login-container">
+      <section class="login-card">
+
+        <h1>Se connecter</h1>
+
+        <form id="login-form">
+
+          <label for="email" class="sr-only">Adresse e-mail</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Adresse e-mail"
+            autocomplete="email"
+            required
+          >
+
+          <label for="password" class="sr-only">Mot de passe</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Mot de passe"
+            autocomplete="current-password"
+            required
+          >
+
+          <button type="submit">Se connecter</button>
+
+          <div class="login-options">
+            <label>
+              <input type="checkbox">
+              <span>Se souvenir de moi</span>
+            </label>
+
+            <a href="#">Besoin d'aide ?</a>
+          </div>
+
+          <p id="message" class="message"></p>
+
+        </form>
+
+        <p class="signup">
+          Nouveau sur GameOfHackers ?
+          <a href="#">Inscrivez-vous</a>
+        </p>
+
+        <p class="disclaimer">
+          <strong>Projet pédagogique</strong><br>
+          GameOfHackers est une application réalisée dans le cadre
+          d'un projet d'apprentissage. Cette application n'est pas
+          affiliée à Netflix et n'a aucun lien avec Netflix.
+        </p>
+
+      </section>
+    </main>
+
+  </div>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>html>

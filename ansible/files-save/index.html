@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>X-Streaming — Profils</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 25%, #3d080c 0%, #170306 38%, #030303 78%);
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profiles-page {
+      width: 100%;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      margin: 0 0 55px;
+      font-size: 42px;
+      font-weight: 700;
+    }
+
+    .profiles {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 34px;
+      flex-wrap: wrap;
+    }
+
+    .profile {
+      width: 180px;
+      text-decoration: none;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    .avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      border: 2px solid transparent;
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .profile:hover .avatar {
+      transform: scale(1.04);
+      border-color: white;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .manage {
+      margin-top: 55px;
+      display: inline-block;
+      padding: 12px 24px;
+      border: 1px solid #777;
+      border-radius: 6px;
+      color: #ddd;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .manage:hover {
+      border-color: white;
+      color: white;
+    }
+
+    @media (max-width: 900px) {
+      h1 {
+        font-size: 34px;
+        margin-bottom: 40px;
+      }
+
+      .profiles {
+        gap: 22px;
+      }
+
+      .profile,
+      .avatar {
+        width: 145px;
+      }
+
+      .avatar {
+        height: 145px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="profiles-page">
+
+    <h1>Qui est-ce ?</h1>
+
+    <section class="profiles">
+
+      <a class="profile" href="home.html">
+        <div class="avatar">
+          <img src="images/belka.png" alt="Belka">
+        </div>
+        <div class="profile-name">Belka</div>
+      </a>
+
+      <a class="profile" href="home.html">
+        <div class="avatar">
+          <img src="images/sophie.png" alt="Sophie">
+        </div>
+        <div class="profile-name">Sophie</div>
+      </a>
+
+      <a class="profile" href="home.html">
+        <div class="avatar">
+          <img src="images/Fredo.png" alt="Fredo">
+        </div>
+        <div class="profile-name">Fredo</div>
+      </a>
+
+      <a class="profile" href="home.html">
+        <div class="avatar">
+          <img src="images/Jade.png" alt="Jade">
+        </div>
+        <div class="profile-name">Jade</div>
+      </a>
+
+    </section>
+
+    <a class="manage" href="#">
+      ✎ &nbsp; Gérer les profils
+    </a>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name {{ domain }} www.{{ domain }};
+
+  return 301 https://{{ domain }}$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  listen [::]:443 ssl;
+
+  server_name {{ domain }} www.{{ domain }};
+
+  root /var/www/{{ domain }};
+
+  ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
+
+
+
+  location = / {
+    return 302 /login.html;
+  }
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  location /stream/ {
+    alias /var/www/html/stream/;
+
+    add_header Access-Control-Allow-Origin "*" always;
+    add_header Cache-Control "no-cache" always;
+
+    types {
+      application/vnd.apple.mpegurl m3u8;
+      application/dash+xml mpd;
+      video/mp2t ts;
+      video/mp4 m4v;
+      audio/mp4 m4a;
+    }
+  }
+}

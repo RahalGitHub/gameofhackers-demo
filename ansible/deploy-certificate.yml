@@ -1,0 +1,141 @@
+
+---
+- name: Deploy SSL certificate with Let's Encrypt and Route 53
+  hosts: web
+  become: true
+  gather_facts: true
+
+  vars_files:
+    - vars/generic.yaml
+
+  vars:
+    certbot_email: belka.r@icloud.com
+    certificate_path: "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+
+    expected_dns_names:
+      - "{{ domain }}"
+      - "www.{{ domain }}"
+
+  tasks:
+    - name: Install Certbot and Route 53 DNS plugin
+      ansible.builtin.apt:
+        name:
+          - certbot
+          - python3-certbot-dns-route53
+        state: present
+        update_cache: true
+
+    - name: Check existing certificate
+      ansible.builtin.stat:
+        path: "{{ certificate_path }}"
+      register: certificate_file
+
+    - name: Read existing certificate domains
+      ansible.builtin.command:
+        argv:
+          - openssl
+          - x509
+          - -in
+          - "{{ certificate_path }}"
+          - -noout
+          - -ext
+          - subjectAltName
+      register: existing_certificate
+      changed_when: false
+      check_mode: false
+      when: certificate_file.stat.exists
+
+    - name: Extract existing DNS names
+      ansible.builtin.set_fact:
+        existing_dns_names: >-
+          {{
+            (existing_certificate.stdout | default(''))
+            | regex_findall('DNS:([^, ]+)')
+          }}
+
+    - name: Check whether certificate needs correction
+      ansible.builtin.set_fact:
+        certificate_needs_correction: >-
+          {{
+            (expected_dns_names | difference(existing_dns_names) | length > 0)
+            or
+            (existing_dns_names | difference(expected_dns_names) | length > 0)
+            or
+            ((existing_dns_names
+              | reject('match', '^[a-zA-Z0-9.-]+$')
+              | list | length) > 0)
+          }}
+
+    - name: Display certificate diagnostic
+      ansible.builtin.debug:
+        msg:
+          - "Existing: {{ existing_dns_names | to_json }}"
+          - "Expected: {{ expected_dns_names | to_json }}"
+          - "Needs correction: {{ certificate_needs_correction }}"
+
+    - name: Verify requested domain names are valid
+      ansible.builtin.assert:
+        that:
+          - domain is match('^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$')
+          - expected_dns_names | length == 2
+          - expected_dns_names[1] == 'www.' ~ domain
+        fail_msg: "Invalid domain configuration."
+        success_msg: "Requested domain names are valid."
+
+    - name: Request or correct certificate using Route 53
+      ansible.builtin.command:
+        argv:
+          - certbot
+          - certonly
+          - --dns-route53
+          - --non-interactive
+          - --agree-tos
+          - --email
+          - "{{ certbot_email }}"
+          - --cert-name
+          - "{{ domain }}"
+          - --force-renewal
+          - -d
+          - "{{ domain }}"
+          - -d
+          - "www.{{ domain }}"
+      when:
+        - certificate_needs_correction | bool
+        - not ansible_check_mode
+
+    - name: Read final certificate domains
+      ansible.builtin.command:
+        argv:
+          - openssl
+          - x509
+          - -in
+          - "{{ certificate_path }}"
+          - -noout
+          - -ext
+          - subjectAltName
+      register: certificate_domains
+      changed_when: false
+      check_mode: false
+      when: certificate_file.stat.exists or not ansible_check_mode
+
+    - name: Extract final DNS names
+      ansible.builtin.set_fact:
+        final_dns_names: >-
+          {{
+            (certificate_domains.stdout | default(''))
+            | regex_findall('DNS:([^, ]+)')
+          }}
+
+    - name: Display final certificate domains
+      ansible.builtin.debug:
+        var: final_dns_names
+
+    - name: Verify certificate contains exactly the expected domains
+      ansible.builtin.assert:
+        that:
+          - (expected_dns_names | difference(final_dns_names) | length) == 0
+          - (final_dns_names | difference(expected_dns_names) | length) == 0
+          - (final_dns_names | reject('match', '^[a-zA-Z0-9.-]+$') | list | length) == 0
+        fail_msg: "The SSL certificate contains invalid DNS names."
+        success_msg: "SSL certificate is valid for both expected domains."
+      when: not ansible_check_mode

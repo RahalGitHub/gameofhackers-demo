@@ -1,0 +1,27 @@
+- name: Deploy GameOfHackers website
+  gather_facts: yes
+  hosts: web
+
+  vars_files:
+    - vars/generic.yaml
+
+  tasks:
+
+    - name: Deploy Vite build
+      ansible.builtin.copy:
+        src: "../dist/"
+        dest: "/var/www/{{ domain }}/"
+        mode: '0644'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      become: true
+
+    - name: Deploy website images
+      ansible.builtin.copy:
+        src: "files/images/"
+        dest: "/var/www/{{ domain }}/images/"
+        mode: '0644'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      become: true
+

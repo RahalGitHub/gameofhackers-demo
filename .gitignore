@@ -1,0 +1,37 @@
+# Ancien historique Git
+.git-ancien-projet/
+
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+dist/
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+crash.log
+
+# Identifiants et secrets
+.env
+.env.*
+*.pem
+*.key
+.aws/
+**/.aws/
+*credentials*
+*secret*
+*password*
+*.p12
+*.pfx
+
+# Ansible
+*.retry
+
+# Vidéo de démonstration volumineuse
+ansible/files/video/*.mp4

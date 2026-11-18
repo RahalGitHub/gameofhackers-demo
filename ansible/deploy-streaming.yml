@@ -1,0 +1,42 @@
+---
+- name: Configure GameOfHackers streaming
+  hosts: streamer
+  become: true
+
+  tasks:
+    - name: Install FFmpeg
+      ansible.builtin.apt:
+        name: ffmpeg
+        state: present
+        update_cache: true
+
+    - name: Install GameOfHackers streaming service
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/gameofhackers-stream.service
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=GameOfHackers RTMP Streaming
+          After=network-online.target
+          Wants=network-online.target
+
+          [Service]
+          Type=simple
+          ExecStart=/usr/bin/ffmpeg -hide_banner -loglevel error -stream_loop -1 -re -i /opt/gameofhackers/videos/demo.mp4 -map 0:v:0 -map 0:a:0 -c:v libx264 -preset ultrafast -tune zerolatency -vf scale=-2:720 -r 30 -g 60 -pix_fmt yuv420p -c:a aac -ac 2 -b:a 128k -f flv rtmp://{{ hostvars['frontend']['private_ip'] }}:1935/live/stream
+          Restart=always
+          RestartSec=10
+
+          [Install]
+          WantedBy=multi-user.target
+      register: streaming_service
+
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+      when: streaming_service.changed
+
+    - name: Enable and start streaming
+      ansible.builtin.systemd:
+        name: gameofhackers-stream
+        enabled: true
+        state: started

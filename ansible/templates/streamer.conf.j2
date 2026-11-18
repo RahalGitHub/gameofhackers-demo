@@ -1,0 +1,22 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    location /hls {
+        add_header Access-Control-Allow-Origin *;
+        root /var/www/html/stream;
+    }
+
+    location /dash {
+        add_header 'Cache-Control' 'no-cache';
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        add_header 'Access-Control-Expose-Headers' 'Content-Length';
+
+        types {
+            application/dash+xml mpd;
+            video/mp4 mp4;
+        }
+
+        root /var/www/html/stream;
+    }
+}

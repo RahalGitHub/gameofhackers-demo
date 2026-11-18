@@ -1,0 +1,27 @@
+{
+  "name": "aws-video-streaming-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RahalGitHub/aws-video-streaming-automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RahalGitHub/aws-video-streaming-automation/issues"
+  },
+  "homepage": "https://github.com/RahalGitHub/aws-video-streaming-automation#readme",
+  "dependencies": {
+    "aws-amplify": "^6.22.2"
+  },
+  "devDependencies": {
+    "vite": "^8.3.4"
+  }
+}
